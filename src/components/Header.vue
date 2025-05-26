@@ -1,20 +1,19 @@
 <template>
   <header class="header">
-    <span class="welcome">Welcome!</span>
-    <button @click="logout">Logout</button>
+    <h1>Job Page</h1>
+    <div v-if="auth.username">
+      <span class="username">Hi, {{ auth.username }}</span>
+      <button @click="logout">Logout</button>
+    </div>
   </header>
 </template>
 
 <script setup lang="ts">
-import { useAuthStore } from '@/stores/auth'
-import { useRouter } from 'vue-router'
-
-const router = useRouter()
-const auth = useAuthStore()
+import { getAuthStoreInstance } from '@/stores/auth'
+const auth = getAuthStoreInstance()
 
 const logout = () => {
-  auth.clearTokens()
-  router.push('/login')
+  auth.logout()
 }
 </script>
 
@@ -23,11 +22,13 @@ const logout = () => {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  background: #f0f0f0;
   padding: 1rem;
+  background: #1e1e1e;
+  color: #ffffff;
+  border-bottom: 1px solid #444;
 }
-button {
-  padding: 0.5rem 1rem;
-  cursor: pointer;
+
+.username {
+  margin-right: 1rem;
 }
 </style>
