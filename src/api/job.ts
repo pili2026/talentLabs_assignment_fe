@@ -23,3 +23,8 @@ export const updateJob = async (id: string, job: any) => {
 export const deleteJob = async (id: string) => {
   await api.delete(`/job/${id}`)
 }
+
+export const getSkillList = async (): Promise<string[]> => {
+  const res = await api.get('/job/skill_list')
+  return res.data
+}

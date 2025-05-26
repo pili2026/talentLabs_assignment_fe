@@ -1,8 +1,11 @@
 import { getAuthStoreInstance } from '@/stores/auth'
 import axios from 'axios'
+import qs from 'qs'
 
 const api = axios.create({
   baseURL: 'http://0.0.0.0:8000/api',
+  paramsSerializer: (params) =>
+    qs.stringify(params, { arrayFormat: 'repeat' }),
 })
 
 api.interceptors.request.use((config) => {
@@ -26,15 +29,16 @@ api.interceptors.response.use(
     ) {
       originalRequest._retry = true
       try {
-        const res = await axios.post('http://0.0.0.0:8000/api/auth/refresh/', {
+        const res = await api.post('/auth/refresh', {
           refresh: auth.refreshToken,
         })
+
         const newAccessToken = res.data.access
         auth.setToken(newAccessToken)
 
         originalRequest.headers.Authorization = `Bearer ${newAccessToken}`
         return api(originalRequest)
-      } catch {
+      } catch (refreshError) {
         auth.logout()
       }
     }
