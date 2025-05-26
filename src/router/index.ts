@@ -1,22 +1,15 @@
 // src/router/index.ts
-import { useAuthStore } from '@/stores/auth'
+import { getAuthStoreInstance } from '@/stores/auth'
 import { createRouter, createWebHistory } from 'vue-router'
 
 import JobListPage from '@/views/JobListPage.vue'
 import LoginPage from '@/views/LoginPage.vue'
+import RegisterPage from '@/views/RegisterPage.vue'
 
 const routes = [
-  {
-    path: '/login',
-    name: 'Login',
-    component: LoginPage,
-  },
-  {
-    path: '/',
-    name: 'Home',
-    component: JobListPage,
-    meta: { requiresAuth: true },
-  },
+  { path: '/', component: JobListPage, meta: { requiresAuth: true } },
+  { path: '/login', component: LoginPage },
+  { path: '/register', component: RegisterPage },
 ]
 
 const router = createRouter({
@@ -24,9 +17,8 @@ const router = createRouter({
   routes,
 })
 
-
 router.beforeEach((to, from, next) => {
-  const auth = useAuthStore()
+  const auth = getAuthStoreInstance()
 
   if (to.meta.requiresAuth && !auth.token) {
     next('/login')
@@ -35,4 +27,4 @@ router.beforeEach((to, from, next) => {
   }
 })
 
-export { router }
+export default router

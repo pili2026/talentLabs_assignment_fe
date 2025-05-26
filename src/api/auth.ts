@@ -1,4 +1,4 @@
-import api from './axios'
+import api from '../utils/axios'
 
 export const login = async (username: string, password: string) => {
   const res = await api.post('/auth/pair', { username, password })
@@ -6,6 +6,10 @@ export const login = async (username: string, password: string) => {
 }
 
 export const register = async (username: string, password: string, email?: string) => {
-  const res = await api.post('/auth/register', { username, password, email })
+  const res = await api.post('/auth/register', {
+    username,
+    password,
+    email,
+  })
   return res.data
 }

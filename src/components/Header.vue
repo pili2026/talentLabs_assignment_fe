@@ -6,14 +6,14 @@
 </template>
 
 <script setup lang="ts">
-import { useRouter } from 'vue-router'
 import { useAuthStore } from '@/stores/auth'
+import { useRouter } from 'vue-router'
 
 const router = useRouter()
 const auth = useAuthStore()
 
 const logout = () => {
-  auth.clearToken()
+  auth.clearTokens()
   router.push('/login')
 }
 </script>

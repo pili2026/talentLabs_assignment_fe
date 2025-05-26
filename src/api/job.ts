@@ -1,4 +1,4 @@
-import api from './axios'
+import api from '../utils/axios'
 
 export const getJobList = async (params?: Record<string, any>) => {
   const res = await api.get('/job/', { params })
