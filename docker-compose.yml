@@ -5,7 +5,7 @@ services:
       dockerfile: Dockerfile
     container_name: talentlabs_frontend
     ports:
-      - '3000:80'
+      - '5173:80'
     environment:
       VITE_API_BASE: ${VITE_API_BASE}
     restart: unless-stopped
