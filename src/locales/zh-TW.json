@@ -35,5 +35,19 @@
   "prev": "上一頁",
   "next": "下一頁",
   "system_title": "職缺系統",
-  "hello": "您好"
+  "hello": "您好",
+  "username": "帳號",
+  "password": "密碼",
+  "login": "登入",
+  "not_registered": "尚未註冊？",
+  "go_to_registration": "前往註冊",
+  "login_failed": "登入失敗，請確認帳號密碼是否正確。",
+  "email": "電子郵件",
+  "confirm_password": "確認密碼",
+  "register": "註冊",
+  "register_required": "所有欄位皆為必填。",
+  "password_mismatch": "密碼不一致。",
+  "invalid_email": "電子郵件格式錯誤。",
+  "register_success": "註冊成功！您現在可以登入。",
+  "register_failed": "註冊失敗，請再試一次。"
 }

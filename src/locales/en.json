@@ -35,5 +35,19 @@
   "prev": "Prev",
   "next": "Next",
   "system_title": "Job System",
-  "hello": "Hello"
+  "hello": "Hello",
+  "login": "Login",
+  "not_registered": "Not registered yet?",
+  "go_to_registration": "Go to registration",
+  "login_failed": "Login failed. Please check your credentials.",
+  "username": "Username",
+  "email": "Email",
+  "password": "Password",
+  "confirm_password": "Confirm Password",
+  "register": "Register",
+  "register_required": "All fields are required.",
+  "password_mismatch": "Passwords do not match.",
+  "invalid_email": "Email format is invalid.",
+  "register_success": "Registration successful! You can now log in.",
+  "register_failed": "Registration failed. Please try again."
 }
