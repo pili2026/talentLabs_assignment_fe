@@ -3,9 +3,8 @@ import axios from 'axios'
 import qs from 'qs'
 
 const api = axios.create({
-  baseURL: 'http://0.0.0.0:8000/api',
-  paramsSerializer: (params) =>
-    qs.stringify(params, { arrayFormat: 'repeat' }),
+  baseURL: import.meta.env.VITE_API_BASE || '/api',
+  paramsSerializer: (params) => qs.stringify(params, { arrayFormat: 'repeat' }),
 })
 
 api.interceptors.request.use((config) => {
@@ -22,11 +21,7 @@ api.interceptors.response.use(
     const originalRequest = error.config
     const auth = getAuthStoreInstance()
 
-    if (
-      error.response?.status === 401 &&
-      !originalRequest._retry &&
-      auth.refreshToken
-    ) {
+    if (error.response?.status === 401 && !originalRequest._retry && auth.refreshToken) {
       originalRequest._retry = true
       try {
         const res = await api.post('/auth/refresh', {
@@ -44,7 +39,7 @@ api.interceptors.response.use(
     }
 
     return Promise.reject(error)
-  }
+  },
 )
 
 export default api
