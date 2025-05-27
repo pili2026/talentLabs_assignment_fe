@@ -58,7 +58,7 @@ See `Dockerfile`, `entrypoint.sh`, and `nginx.conf` under `bin/nginx/` for detai
 docker-compose up --build
 ```
 
-This will build the frontend, proxy API requests to the backend via the `${JOB_SERVER}` environment variable, and expose the site on port `8080`.
+This will build the frontend, proxy API requests to the backend via the `VITE_API_BASE` environment variable, and expose the site on port `8000`.
 
 Ensure that your backend server is reachable and that CORS settings are correctly configured.
 
