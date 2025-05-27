@@ -1,4 +1,4 @@
-# Job Platform - Frontend (Vue 3 + Vite)
+# TalentLabs Frontend Assignment
 
 This is the frontend implementation for the Job Platform coding assignment. Built with **Vue 3**, **TypeScript**, **Tailwind CSS**, and **Vite**.
 
