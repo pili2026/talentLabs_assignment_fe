@@ -1,10 +1,18 @@
 <template>
-  <header class="header">
-    <h1>{{ t('job_page') }}</h1>
+  <header class="sticky top-0 z-50 bg-gray-900 text-white shadow-md">
+    <div class="max-w-6xl mx-auto flex justify-between items-center px-6 py-4">
+      <h1 class="text-xl font-bold">{{ t('system_title') }}</h1>
 
-    <div v-if="auth.username">
-      <span class="username">{{ t('greeting') }}, {{ auth.username }}</span>
-      <button @click="logout">{{ t('logout') }}</button>
+      <div v-if="auth.username" class="flex items-center gap-4">
+        <span class="text-sm">{{ t('hello') }}, <strong>{{ auth.username }}</strong></span>
+        <select v-model="$i18n.locale" class="border border-gray-500 bg-black px-3 py-1 rounded-lg text-sm">
+          <option value="zh-TW">繁體中文</option>
+          <option value="en">English</option>
+        </select>
+        <button @click="logout" class="border border-gray-500 px-4 py-1 rounded-lg text-sm">
+          {{ t('logout') }}
+        </button>
+      </div>
     </div>
   </header>
 </template>
@@ -20,19 +28,3 @@ const logout = () => {
   auth.logout()
 }
 </script>
-
-<style scoped>
-.header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 1rem;
-  background: #1e1e1e;
-  color: #ffffff;
-  border-bottom: 1px solid #444;
-}
-
-.username {
-  margin-right: 1rem;
-}
-</style>

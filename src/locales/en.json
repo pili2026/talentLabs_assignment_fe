@@ -31,5 +31,9 @@
   "job_detail": "Job Detail",
   "job_page": "Job Page",
   "greeting": "Hi",
-  "logout": "Logout"
+  "logout": "Logout",
+  "prev": "Prev",
+  "next": "Next",
+  "system_title": "Job System",
+  "hello": "Hello"
 }

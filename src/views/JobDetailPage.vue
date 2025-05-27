@@ -1,14 +1,16 @@
 <template>
-  <div class="job-detail-page">
-    <h2>{{ t('job_detail') }}</h2>
+  <div class="min-h-screen bg-black text-white px-6 py-10 max-w-3xl mx-auto">
+    <h2 class="text-2xl font-bold mb-6">{{ t('job_detail') }}</h2>
 
     <router-link to="/">
-      <button class="back-button">{{ t('back_to_list') }}</button>
+      <button class="mb-6 bg-gray-700 hover:bg-gray-600 text-white px-4 py-2 rounded-lg text-sm">
+        {{ t('back_to_list') }}
+      </button>
     </router-link>
 
-    <div v-if="loading">Loading...</div>
-    <div v-else-if="error" class="error">{{ error }}</div>
-    <div v-else>
+    <LoadingSpinner v-if="loading" />
+    <div v-else-if="error" class="text-red-500">{{ error }}</div>
+    <div v-else class="space-y-3">
       <p><strong>{{ t('title') }}:</strong> {{ job.title }}</p>
       <p><strong>{{ t('company_name') }}:</strong> {{ job.company_name }}</p>
       <p><strong>{{ t('location') }}:</strong> {{ job.location }}</p>
@@ -45,25 +47,3 @@ onMounted(async () => {
   }
 })
 </script>
-
-<style scoped>
-.job-detail-page {
-  max-width: 800px;
-  margin: 2rem auto;
-}
-.error {
-  color: red;
-}
-.back-button {
-  margin-bottom: 1rem;
-  background-color: #444;
-  color: white;
-  padding: 6px 12px;
-  border: none;
-  border-radius: 4px;
-  cursor: pointer;
-}
-.back-button:hover {
-  background-color: #666;
-}
-</style>
