@@ -1,49 +1,54 @@
 <template>
   <div class="job-list-page">
-    <h2>Job List</h2>
+    <h2>{{ t('job_list') }}</h2>
 
     <div class="toolbar">
       <router-link to="/job/create">
-        <button class="create-button">Create New Job</button>
+        <button class="create-button">{{ t('create_job') }}</button>
       </router-link>
+
+      <select v-model="$i18n.locale">
+        <option value="zh-TW">繁體中文</option>
+        <option value="en">English</option>
+      </select>
     </div>
 
     <form @submit.prevent="loadJobs" class="filter-form">
-      <input v-model="filters.search" placeholder="Search..." />
+      <input v-model="filters.search" :placeholder="t('search')" />
 
       <select v-model="filters.status">
-        <option value="">All Status</option>
-        <option value="active">Active</option>
-        <option value="expired">Expired</option>
-        <option value="scheduled">Scheduled</option>
+        <option value="">{{ t('status') }}</option>
+        <option value="active">active</option>
+        <option value="expired">expired</option>
+        <option value="scheduled">scheduled</option>
       </select>
 
       <select v-model="filters.order_by">
-        <option value="posting_date">Posting Date</option>
-        <option value="expiration_date">Expiration Date</option>
+        <option value="posting_date">{{ t('posting_date') }}</option>
+        <option value="expiration_date">{{ t('expiration_date') }}</option>
       </select>
 
       <select v-model="filters.sort_order">
-        <option value="desc">DESC</option>
-        <option value="asc">ASC</option>
+        <option value="desc">{{ t('sort_desc') }}</option>
+        <option value="asc">{{ t('sort_asc') }}</option>
       </select>
 
       <div class="skill-checkbox-group">
-        <label>Skills:</label>
+        <label>{{ t('required_skills') }}:</label>
         <div class="skills-list">
-          <label v-for="skill in availableSkills" :key="skill" class="skill-option">
-            <input
-              type="checkbox"
-              :value="skill"
-              v-model="filters.skills"
-            />
+          <label
+            v-for="skill in availableSkills"
+            :key="skill"
+            class="skill-option"
+          >
+            <input type="checkbox" :value="skill" v-model="filters.skills" />
             {{ skill }}
           </label>
         </div>
       </div>
 
-      <button type="submit">Search</button>
-      <button type="button" @click="resetFilters">Clear</button>
+      <button type="submit">{{ t('search') }}</button>
+      <button type="button" @click="resetFilters">{{ t('clear') }}</button>
     </form>
 
     <div v-if="pagination.total > 0" class="pagination">
@@ -57,18 +62,18 @@
     <ul v-else>
       <li v-for="job in jobs" :key="job.id" class="job-item">
         <h3>{{ job.title }}</h3>
-        <p><strong>Company:</strong> {{ job.company_name }}</p>
-        <p><strong>Location:</strong> {{ job.location }}</p>
-        <p><strong>Status:</strong> {{ job.status }}</p>
-        <p><strong>Posted:</strong> {{ job.posting_date }}</p>
+        <p><strong>{{ t('company_name') }}:</strong> {{ job.company_name }}</p>
+        <p><strong>{{ t('location') }}:</strong> {{ job.location }}</p>
+        <p><strong>{{ t('status') }}:</strong> {{ job.status }}</p>
+        <p><strong>{{ t('posting_date') }}:</strong> {{ job.posting_date }}</p>
 
         <div class="actions">
           <router-link :to="`/job/edit/${job.id}`">
-            <button>Edit</button>
+            <button>{{ t('edit') }}</button>
           </router-link>
-          <button @click="confirmDelete(job.id)">Delete</button>
+          <button @click="confirmDelete(job.id)">{{ t('delete') }}</button>
           <router-link :to="`/job/${job.id}`">
-            <button>Detail</button>
+            <button>{{ t('detail') }}</button>
           </router-link>
         </div>
       </li>
@@ -76,12 +81,14 @@
   </div>
 </template>
 
+
 <script setup lang="ts">
 import { deleteJob, getJobList, getSkillList } from '@/api/job'
 import { computed, onMounted, reactive, ref, watch } from 'vue'
+import { useI18n } from 'vue-i18n'
 import { useRoute, useRouter } from 'vue-router'
 
-
+const { t, locale } = useI18n()
 const jobs = ref<any[]>([])
 const loading = ref(false)
 const error = ref('')
@@ -227,6 +234,11 @@ watch(
   },
   { deep: true }
 )
+
+watch(locale, (newLocale) => {
+  localStorage.setItem('locale', newLocale)
+})
+
 </script>
 
 <style scoped>

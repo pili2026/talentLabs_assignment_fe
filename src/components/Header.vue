@@ -1,15 +1,19 @@
 <template>
   <header class="header">
-    <h1>Job Page</h1>
+    <h1>{{ t('job_page') }}</h1>
+
     <div v-if="auth.username">
-      <span class="username">Hi, {{ auth.username }}</span>
-      <button @click="logout">Logout</button>
+      <span class="username">{{ t('greeting') }}, {{ auth.username }}</span>
+      <button @click="logout">{{ t('logout') }}</button>
     </div>
   </header>
 </template>
 
 <script setup lang="ts">
 import { getAuthStoreInstance } from '@/stores/auth'
+import { useI18n } from 'vue-i18n'
+
+const { t } = useI18n()
 const auth = getAuthStoreInstance()
 
 const logout = () => {

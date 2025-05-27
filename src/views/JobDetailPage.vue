@@ -1,23 +1,22 @@
 <template>
   <div class="job-detail-page">
-    <h2>Job Detail</h2>
+    <h2>{{ t('job_detail') }}</h2>
 
     <router-link to="/">
-        <button class="back-button">← Back to Job List</button>
+      <button class="back-button">{{ t('back_to_list') }}</button>
     </router-link>
 
     <div v-if="loading">Loading...</div>
     <div v-else-if="error" class="error">{{ error }}</div>
     <div v-else>
-      <p><strong>Title:</strong> {{ job.title }}</p>
-      <p><strong>Company:</strong> {{ job.company_name }}</p>
-      <p><strong>Location:</strong> {{ job.location }}</p>
-      <p><strong>Status:</strong> {{ job.status }}</p>
-      <p><strong>Posting Date:</strong> {{ job.posting_date }}</p>
-      <p><strong>Expiration Date:</strong> {{ job.expiration_date }}</p>
-      <p><strong>Description:</strong> {{ job.description }}</p>
-      <p><strong>Salary Range:</strong> {{ job.salary_range || '-' }}</p>
-      <p><strong>Required Skills:</strong> {{ job.required_skills.join(', ') }}</p>
+      <p><strong>{{ t('title') }}:</strong> {{ job.title }}</p>
+      <p><strong>{{ t('company_name') }}:</strong> {{ job.company_name }}</p>
+      <p><strong>{{ t('location') }}:</strong> {{ job.location }}</p>
+      <p><strong>{{ t('status') }}:</strong> {{ job.status }}</p>
+      <p><strong>{{ t('posting_date') }}:</strong> {{ job.posting_date }}</p>
+      <p><strong>{{ t('expiration_date') }}:</strong> {{ job.expiration_date }}</p>
+      <p><strong>{{ t('description') }}:</strong> {{ job.description }}</p>
+      <p><strong>{{ t('required_skills') }}:</strong> {{ job.required_skills.join(', ') }}</p>
     </div>
   </div>
 </template>
@@ -25,8 +24,10 @@
 <script setup lang="ts">
 import { getJobDetail } from '@/api/job'
 import { onMounted, ref } from 'vue'
+import { useI18n } from 'vue-i18n'
 import { useRoute } from 'vue-router'
 
+const { t } = useI18n()
 const route = useRoute()
 const jobId = route.params.id as string
 
@@ -38,7 +39,7 @@ onMounted(async () => {
   try {
     job.value = await getJobDetail(jobId)
   } catch (e) {
-    error.value = 'Failed to load job.'
+    error.value = t('error_load')
   } finally {
     loading.value = false
   }
@@ -65,6 +66,4 @@ onMounted(async () => {
 .back-button:hover {
   background-color: #666;
 }
-
 </style>
-
