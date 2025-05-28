@@ -16,7 +16,7 @@ FROM nginx:alpine
 
 COPY --from=builder /app/dist /usr/share/nginx/html
 COPY bin/nginx/nginx.conf /etc/nginx/conf.d/default.conf
-COPY bin/nginx/entrypoint.sh /entrypoint.sh
+COPY bin/entrypoint.sh /entrypoint.sh
 
 RUN chmod +x /entrypoint.sh
 RUN apk add --no-cache gettext
