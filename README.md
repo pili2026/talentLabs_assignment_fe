@@ -147,6 +147,48 @@ AI assistance (e.g., GitHub Copilot / ChatGPT) was used for UI improvement and r
 - All job-related fields follow the structure defined in the assignment.
 - Skills can be filtered using checkboxes and comma-separated input.
 
+## Design Decisions & Tradeoffs
+
+Several design choices were made to accommodate ambiguous areas in the frontend portion of the assignment.
+
+### 1. **URL Query Sync and State Preservation**
+
+- The requirement mentions query persistence across page reloads and browser history navigation.
+- Implemented using `vue-router` with full sync between filters, search terms, pagination, and route query parameters.
+- **Tradeoff**: Adds complexity to page state management, but provides a better user experience.
+
+### 2. **Skill Filter UX Design**
+
+- Backend supports filtering by multiple skills, but input format is not defined.
+- Implemented a comma-separated input field and optional checkboxes for simplicity.
+- **Tradeoff**: Easier to implement than a fully dynamic multi-select UI component, yet still functional and testable.
+
+### 3. **Language Switching (i18n)**
+
+- Used `vue-i18n` to support Traditional Chinese and English.
+- Language setting is preserved across page reloads using `localStorage`.
+- **Tradeoff**: No server-side translation fallback, which is acceptable in this SPA context.
+
+### 4. **API Integration via Proxy**
+
+- API requests are proxied using `VITE_API_BASE` both in Vite dev server and Nginx Docker setup.
+- Ensures frontend can run independently or with Docker Compose while still reaching the backend.
+- **Tradeoff**: Requires careful alignment of paths between `.env`, `vite.config.ts`, and `nginx.conf`.
+
+### 5. **Component Architecture**
+
+- Page components are co-located under `src/pages`; shared logic is abstracted into composables and API modules.
+- All API calls are centralized under `src/api` for better maintainability.
+- **Tradeoff**: Lightweight modularity instead of Vuex/Pinia for this assignment scope.
+
+### 6. **Responsiveness and Loading Experience**
+
+- Used Tailwind CSS with responsive breakpoints and a simple animated loading spinner.
+- No heavy animation libraries to maintain performance.
+- **Tradeoff**: Prioritizes speed and clarity over visual complexity.
+
+> These decisions aim to balance development speed, usability, and assignment constraints.
+
 ## Future Improvements
 
 - Add authentication & permission roles
