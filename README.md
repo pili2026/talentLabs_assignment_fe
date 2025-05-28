@@ -2,8 +2,6 @@
 
 This is the frontend implementation for the Job Platform coding assignment. Built with **Vue 3**, **TypeScript**, **Tailwind CSS**, and **Vite**.
 
----
-
 ## Features
 
 - Job List with search, filter, pagination, and sorting
@@ -12,8 +10,6 @@ This is the frontend implementation for the Job Platform coding assignment. Buil
 - URL query sync & browser history support
 - Responsive UI using Tailwind CSS
 - Simple animated loading spinner
-
----
 
 ## Project Setup
 
