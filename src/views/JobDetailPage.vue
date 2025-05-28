@@ -11,20 +11,37 @@
     <LoadingSpinner v-if="loading" />
     <div v-else-if="error" class="text-red-500">{{ error }}</div>
     <div v-else class="space-y-3">
-      <p><strong>{{ t('title') }}:</strong> {{ job.title }}</p>
-      <p><strong>{{ t('company_name') }}:</strong> {{ job.company_name }}</p>
-      <p><strong>{{ t('location') }}:</strong> {{ job.location }}</p>
-      <p><strong>{{ t('status') }}:</strong> {{ job.status }}</p>
-      <p><strong>{{ t('posting_date') }}:</strong> {{ job.posting_date }}</p>
-      <p><strong>{{ t('expiration_date') }}:</strong> {{ job.expiration_date }}</p>
-      <p><strong>{{ t('description') }}:</strong> {{ job.description }}</p>
-      <p><strong>{{ t('required_skills') }}:</strong> {{ job.required_skills.join(', ') }}</p>
+      <p>
+        <strong>{{ t('title') }}:</strong> {{ job.title }}
+      </p>
+      <p>
+        <strong>{{ t('company_name') }}:</strong> {{ job.company_name }}
+      </p>
+      <p>
+        <strong>{{ t('location') }}:</strong> {{ job.location }}
+      </p>
+      <p>
+        <strong>{{ t('status') }}:</strong> {{ job.status }}
+      </p>
+      <p>
+        <strong>{{ t('posting_date') }}:</strong> {{ job.posting_date }}
+      </p>
+      <p>
+        <strong>{{ t('expiration_date') }}:</strong> {{ job.expiration_date }}
+      </p>
+      <p>
+        <strong>{{ t('description') }}:</strong> {{ job.description }}
+      </p>
+      <p>
+        <strong>{{ t('required_skills') }}:</strong> {{ job.required_skills.join(', ') }}
+      </p>
     </div>
   </div>
 </template>
 
 <script setup lang="ts">
 import { getJobDetail } from '@/api/job'
+import LoadingSpinner from '@/components/LoadingSpinner.vue'
 import { onMounted, ref } from 'vue'
 import { useI18n } from 'vue-i18n'
 import { useRoute } from 'vue-router'

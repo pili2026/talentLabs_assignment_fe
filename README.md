@@ -55,26 +55,70 @@ See `Dockerfile`, `entrypoint.sh`, and `nginx.conf` under `bin/nginx/` for detai
 #### Build and Run with Docker Compose
 
 ```bash
-docker-compose up --build
+docker compose up --build
 ```
 
-This will build the frontend, proxy API requests to the backend via the `VITE_API_BASE` environment variable, and expose the site on port `8000`.
+This will build the frontend image, proxy API requests to the backend via the VITE_API_BASE environment variable, and expose the site on port `8000`.
 
-Ensure that your backend server is reachable and that CORS settings are correctly configured.
+> When running the frontend container independently:
+>
+> - Make sure the Docker network used by both frontend and backend containers (e.g., talentlabs_network) already exists
+> - Ensure the backend container (e.g., talentlabs_web) is joined to the same network
+> - Otherwise, Nginx will throw: host not found in upstream "talentlabs_web"
+
+You can verify the network and container status using:
+
+```bash
+docker network ls
+docker network inspect talentlabs_network
+```
 
 ### Environment Configuration
 
-This project uses Vite's `.env` files to configure runtime settings.
+This project uses Vite's .env or Docker ARG to configure runtime settings.
 
 #### Example: Configure backend API location
 
 You can create a `.env` file and define:
 
 ```env
-VITE_API_BASE=http://0.0.0.0:8000
+VITE_API_BASE=/api
 ```
 
-This allows frontend requests (e.g., via axios) to be directed to the correct backend during development or containerized deployment.
+This ensures that frontend requests to /api/... will be proxied to the backend server.
+
+During local development (via npm run dev), the proxy is handled by Vite's config:
+
+```js
+server: {
+  host: '0.0.0.0',
+  port: 5173,
+  proxy: {
+    '/api': {
+      target: env.VITE_PROXY_TARGET || 'http://localhost:8000',
+      changeOrigin: true,
+    },
+  },
+}
+```
+
+During Docker build, you can inject VITE_API_BASE like this:
+
+```bash
+docker build --build-arg VITE_API_BASE=/api -t job-fe .
+```
+
+Or via Docker Compose:
+
+```yml
+build:
+  context: .
+  dockerfile: Dockerfile
+  args:
+    VITE_API_BASE: /api
+```
+
+Make sure VITE_API_BASE matches the proxy path used in Nginx (nginx.conf) and Vite (vite.config.ts).
 
 ## Directory Highlights
 
