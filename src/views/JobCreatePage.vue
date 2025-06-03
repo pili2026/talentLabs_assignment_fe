@@ -9,21 +9,67 @@
     </router-link>
 
     <form @submit.prevent="submit" class="grid gap-4">
-      <input v-model="form.title" :placeholder="t('title')" required class="bg-black border border-gray-500 px-4 py-2 rounded-lg text-sm" />
-      <input v-model="form.description" :placeholder="t('description')" required class="bg-black border border-gray-500 px-4 py-2 rounded-lg text-sm" />
-      <input v-model="form.location" :placeholder="t('location')" required class="bg-black border border-gray-500 px-4 py-2 rounded-lg text-sm" />
+      <input
+        v-model="form.title"
+        :placeholder="t('title')"
+        required
+        class="bg-black border border-gray-500 px-4 py-2 rounded-lg text-sm"
+      />
+      <input
+        v-model="form.description"
+        :placeholder="t('description')"
+        required
+        class="bg-black border border-gray-500 px-4 py-2 rounded-lg text-sm"
+      />
+      <input
+        v-model="form.location"
+        :placeholder="t('location')"
+        required
+        class="bg-black border border-gray-500 px-4 py-2 rounded-lg text-sm"
+      />
 
       <div class="flex gap-4">
-        <input v-model="form.salaryMin" type="number" :placeholder="t('salary_min')" class="bg-black border border-gray-500 px-4 py-2 rounded-lg text-sm w-full" />
-        <input v-model="form.salaryMax" type="number" :placeholder="t('salary_max')" class="bg-black border border-gray-500 px-4 py-2 rounded-lg text-sm w-full" />
+        <input
+          v-model="form.salaryMin"
+          type="number"
+          :placeholder="t('salary_min')"
+          class="bg-black border border-gray-500 px-4 py-2 rounded-lg text-sm w-full"
+        />
+        <input
+          v-model="form.salaryMax"
+          type="number"
+          :placeholder="t('salary_max')"
+          class="bg-black border border-gray-500 px-4 py-2 rounded-lg text-sm w-full"
+        />
       </div>
 
-      <input v-model="form.posting_date" type="date" :placeholder="t('posting_date')" required class="bg-black border border-gray-500 px-4 py-2 rounded-lg text-sm" />
-      <input v-model="form.expiration_date" type="date" :placeholder="t('expiration_date')" required class="bg-black border border-gray-500 px-4 py-2 rounded-lg text-sm" />
+      <input
+        v-model="form.posting_date"
+        type="date"
+        :placeholder="t('posting_date')"
+        required
+        class="bg-black border border-gray-500 px-4 py-2 rounded-lg text-sm"
+      />
+      <input
+        v-model="form.expiration_date"
+        type="date"
+        :placeholder="t('expiration_date')"
+        required
+        class="bg-black border border-gray-500 px-4 py-2 rounded-lg text-sm"
+      />
 
-      <input v-model="form.company_name" :placeholder="t('company_name')" required class="bg-black border border-gray-500 px-4 py-2 rounded-lg text-sm" />
+      <input
+        v-model="form.company_name"
+        :placeholder="t('company_name')"
+        required
+        class="bg-black border border-gray-500 px-4 py-2 rounded-lg text-sm"
+      />
 
-      <select v-model="form.status" required class="bg-black border border-gray-500 px-4 py-2 rounded-lg text-sm">
+      <select
+        v-model="form.status"
+        required
+        class="bg-black border border-gray-500 px-4 py-2 rounded-lg text-sm"
+      >
         <option value="active">{{ t('status_active') }}</option>
         <option value="scheduled">{{ t('status_scheduled') }}</option>
         <option value="expired">{{ t('status_expired') }}</option>
@@ -35,7 +81,10 @@
         class="bg-black border border-gray-500 px-4 py-2 rounded-lg text-sm min-h-[100px]"
       ></textarea>
 
-      <button type="submit" class="bg-blue-600 hover:bg-blue-700 text-white px-5 py-2 rounded-lg text-sm">
+      <button
+        type="submit"
+        class="bg-blue-600 hover:bg-blue-700 text-white px-5 py-2 rounded-lg text-sm"
+      >
         {{ t('create_job') }}
       </button>
 
@@ -70,11 +119,13 @@ const form = ref({
 const submit = async () => {
   error.value = ''
   try {
+    const { salaryMin, salaryMax, ...restForm } = form.value
+
     const payload = {
-      ...form.value,
+      ...restForm,
       salary_range: {
-        min: form.value.salaryMin,
-        max: form.value.salaryMax,
+        min: salaryMin,
+        max: salaryMax,
       },
       required_skills: form.value.required_skills
         ? form.value.required_skills.split(',').map((s) => s.trim())
