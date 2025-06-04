@@ -1,6 +1,6 @@
-# TalentLabs Frontend Assignment
+# Job Platform Frontend
 
-This is the frontend implementation for the Job Platform coding assignment. Built with **Vue 3**, **TypeScript**, **Tailwind CSS**, and **Vite**.
+This is the frontend implementation for the Job Platform. Built with **Vue 3**, **TypeScript**, **Tailwind CSS**, and **Vite**.
 
 ## Features
 
@@ -58,15 +58,15 @@ This will build the frontend image, proxy API requests to the backend via the VI
 
 > When running the frontend container independently:
 >
-> - Make sure the Docker network used by both frontend and backend containers (e.g., talentlabs_network) already exists
-> - Ensure the backend container (e.g., talentlabs_web) is joined to the same network
-> - Otherwise, Nginx will throw: host not found in upstream "talentlabs_web"
+> - Make sure the Docker network used by both frontend and backend containers (e.g., job_platform_network) already exists
+> - Ensure the backend container (e.g., job_platform_web) is joined to the same network
+> - Otherwise, Nginx will throw: host not found in upstream "job_platform_web"
 
 You can verify the network and container status using:
 
 ```bash
 docker network ls
-docker network inspect talentlabs_network
+docker network inspect job_platform_network
 ```
 
 ### Environment Configuration

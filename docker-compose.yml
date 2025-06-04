@@ -5,7 +5,7 @@ services:
       dockerfile: Dockerfile
       args:
         VITE_API_BASE: ${VITE_API_BASE}
-    container_name: talentlabs_frontend
+    container_name: job_platform_frontend
     ports:
       - '5173:80'
     environment:
@@ -14,8 +14,8 @@ services:
       - .env
     restart: unless-stopped
     networks:
-      - talentlabs_network
+      - job_platform_network
 
 networks:
-  talentlabs_network:
+  job_platform_network:
     external: true
